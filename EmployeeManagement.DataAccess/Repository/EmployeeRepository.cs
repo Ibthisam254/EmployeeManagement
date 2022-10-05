@@ -7,17 +7,15 @@ using System.Linq;
 
 namespace EmployeeManagement.DataAccess.Repository
 {
-    /// <summary>
-    /// Connect To Database and Perforum CRUD operations
-    /// </summary>
+    
     public class EmployeeRepository : IEmployeeRepository
     {
         #region CONSTANTFIELD
-        private const string _getEmployeeId = "EXEC spGetEmployeeById_EMPLOYEE @Id";
-        private const string _getEmployees = "EXEC spGetEmployees_EMPLOYEE";
-        private const string _insert = "EXEC spINSERT_EMPLOYEE @Name,@Department,@Age,@Address";
-        private const string _update = "EXEC spUPDATE_EMPLOYEE @Id,@Name,@Department,@Age,@Address";
-        private const string _delete = "EXEC spDELETE_EMPLOYEE @Id";
+        private const string SP_GET_EmployeeBYId = "EXEC spGetEmployeeById_EMPLOYEE @Id";
+        private const string SP_GET_Employees = "EXEC spGetEmployees_EMPLOYEE";
+        private const string SP_Insert = "EXEC spINSERT_EMPLOYEE @Name,@Department,@Age,@Address";
+        private const string SP_Update = "EXEC spUPDATE_EMPLOYEE @Id,@Name,@Department,@Age,@Address";
+        private const string SP_Delete = "EXEC spDELETE_EMPLOYEE @Id";
         private const string _databaseConnection = "data source = (localdb)\\mssqllocaldb; database =EMPLOYEE_NEWDATABASE;";
         #endregion
         #region PRIVATEFIELD
@@ -30,12 +28,12 @@ namespace EmployeeManagement.DataAccess.Repository
         }
         public EmployeeData GetEmployeeById(int id)
         {
-            //Take data from Table By Id
+            
             try
             {
                 _sqlconnection.Open();
 
-                var sqlCommand = new SqlCommand(cmdText: _getEmployeeId, _sqlconnection);
+                var sqlCommand = new SqlCommand(cmdText: SP_GET_EmployeeBYId, _sqlconnection);
                 sqlCommand.Parameters.AddWithValue("Id", id);
 
                 var sqlDataReader = sqlCommand.ExecuteReader();
@@ -73,7 +71,7 @@ namespace EmployeeManagement.DataAccess.Repository
             {
                 _sqlconnection.Open();
 
-                var sqlCommand = new SqlCommand(cmdText: _getEmployees, _sqlconnection);
+                var sqlCommand = new SqlCommand(cmdText: SP_GET_Employees, _sqlconnection);
 
                 var sqlDataReader = sqlCommand.ExecuteReader();
 
@@ -107,7 +105,7 @@ namespace EmployeeManagement.DataAccess.Repository
             try
             {
                 _sqlconnection.Open();
-                var sqlCommand = new SqlCommand(cmdText:_insert, _sqlconnection);
+                var sqlCommand = new SqlCommand(cmdText: SP_Insert, _sqlconnection);
                 sqlCommand.Parameters.AddWithValue("Name", insertEmployee.Name);
                 sqlCommand.Parameters.AddWithValue("Department", insertEmployee.Department);
                 sqlCommand.Parameters.AddWithValue("Age", insertEmployee.Age);
@@ -133,7 +131,7 @@ namespace EmployeeManagement.DataAccess.Repository
             try
             {
                 _sqlconnection.Open();
-                var sqlCommand = new SqlCommand(cmdText: _update, _sqlconnection);
+                var sqlCommand = new SqlCommand(cmdText: SP_Update, _sqlconnection);
                 sqlCommand.Parameters.AddWithValue("Id", updateEmployee.Id);
                 sqlCommand.Parameters.AddWithValue("Name", updateEmployee.Name);
                 sqlCommand.Parameters.AddWithValue("Department", updateEmployee.Department);
@@ -159,7 +157,7 @@ namespace EmployeeManagement.DataAccess.Repository
             try
             {
                 _sqlconnection.Open();
-                var sqlCommand = new SqlCommand(cmdText: _delete, _sqlconnection);
+                var sqlCommand = new SqlCommand(cmdText: SP_Delete, _sqlconnection);
                 sqlCommand.Parameters.AddWithValue("Id", employeeId);
 
                 sqlCommand.ExecuteNonQuery();
@@ -177,6 +175,6 @@ namespace EmployeeManagement.DataAccess.Repository
 
         }
         #endregion
-        //Create Methods For Table insert, update and Delete Here
+        
     }
 }

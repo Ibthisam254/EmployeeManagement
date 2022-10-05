@@ -2,13 +2,13 @@
     bindEvents();
     hideEmployeeDetailCard();
 });
-
+var employeeUrl = "https://localhost:44383/";
 function bindEvents() {
     $(".employeeDetails").on("click", function (event) {
         var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
-            url: 'https://localhost:44383/api/internal/employee/' + employeeId,
+            url: employeeUrl+'api/internal/employee/' + employeeId,
             type: 'GET',
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -34,7 +34,7 @@ function bindEvents() {
         var conformation = confirm("Are you sure you want to remove item ?")
         if (conformation) {
             $.ajax({
-                url: 'https://localhost:44383/api/internal/employee/delete/' + employeeId,
+                url: employeeUrl+'api/internal/employee/delete/' + employeeId,
                 type: 'DELETE',
                 contentType: "application/json; charset=utf-8",
                 success: function (result) {
@@ -46,8 +46,7 @@ function bindEvents() {
             });
             alert("Successfully Deleted");
         }
-        else
-        {
+        else {
             alert("Delete Action Cancelled");
         }
     });
@@ -65,11 +64,12 @@ function bindEvents() {
         var data = JSON.stringify(employeeDetailedViewModel);
 
         $.ajax({
-            url: 'https://localhost:44383/api/internal/employee/insert-employees',
+            url: employeeUrl+'api/internal/employee/insert-employees',
             type: 'POST',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: data,
+            async: false,
             success: function (result) {
 
                 location.reload();
@@ -78,33 +78,77 @@ function bindEvents() {
                 console.log(error);
             }
         });
+        alert("Created Successfully");
     });
-    $("#updateform").submit(function (event) {
-        console.log("click");
+    
 
-        var employeeDetailedViewModel = {};
-        employeeDetailedViewModel.Id = Number$("#id").val();
-        employeeDetailedViewModel.Name = $("#updatename").val();
-        employeeDetailedViewModel.Department = $("#updatedepartment").val();
-        employeeDetailedViewModel.Age = Number($("#updateage").val());
-        employeeDetailedViewModel.Address = $("#updateaddress").val();
 
-        var data = JSON.stringify(employeeDetailedViewModel);
+
+    $(".employeeEdit").on("click", function (event) {
+        console.log("clicked");
+        var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
-            url: 'https://localhost:44383/api/internal/employee/update-employees',
-            type: 'PUT',
-            dataType: 'json',
+            url: 'https://localhost:44383/api/internal/employee/' + employeeId,
+            type: 'GET',
             contentType: "application/json; charset=utf-8",
-            data: data,
             success: function (result) {
 
-                location.reload();
+
+
+                $("#updateid").val(result.id)
+                $("#updatename").val(result.name)
+                $("#updatedepartment").val(result.department)
+                $("#updateage").val(result.age)
+                $("#updateaddress").val(result.address)
             },
             error: function (error) {
                 console.log(error);
             }
         });
+        $("#updateform").submit(function (event) {
+            console.log("clicked");
+
+
+
+            var idUpdate = $("#updateid").val();
+            var nameUpdate = $("#updatename").val();
+            var departmentUpdate = $("#updatedepartment").val();
+            var ageUpdate = $("#updateage").val();
+            var addressUpdate = $("#updateaddress").val();
+
+            let employees = {
+                id: parseInt(idUpdate),
+                name: nameUpdate,
+                department: departmentUpdate,
+                age: parseInt(ageUpdate),
+                address: addressUpdate
+            };
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: 'https://localhost:44383/api/internal/employee/update-employees',
+                type: 'PUT',
+                data: JSON.stringify(employees),
+                dataType: 'json',
+                async: false,
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            });
+            alert("Updated Successfully");
+
+
+        });
+
+
+        
     });
     
 }

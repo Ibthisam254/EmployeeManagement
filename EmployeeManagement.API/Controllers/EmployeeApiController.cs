@@ -2,6 +2,7 @@
 using EmployeeManagement.Application.Contracts;
 using EmployeeManagement.Application.Models;
 using EmployeeManagement.DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,13 @@ namespace EmployeeManagement.API.Controllers
                 {
                     throw new ArgumentException("Invalid Employee Id");
                 }
-                var getEmployeeById = _employeeService.GetEmployeeById(employeeId);
-                if (getEmployeeById == null) 
+                var employeeDetails = _employeeService.GetEmployeeById(employeeId);
+
+                if (employeeDetails == null) 
                 {
                     throw new ArgumentException("Employee Not Found");
                 }
-                return Ok(getEmployeeById);
+                return Ok(employeeDetails);
             }
 
             catch (Exception)
@@ -54,8 +56,8 @@ namespace EmployeeManagement.API.Controllers
         {
             try
             {
-                var getEmployees = _employeeService.GetEmployees();
-                return Ok(getEmployees);
+                var listofEmployees = _employeeService.GetEmployees();
+                return Ok(listofEmployees);
             }
             catch (Exception)
             {
@@ -71,6 +73,7 @@ namespace EmployeeManagement.API.Controllers
         {
             try
             {
+                
 
                 var employeeDto = new EmployeeDto()
                 {
@@ -80,8 +83,9 @@ namespace EmployeeManagement.API.Controllers
                     Department = employeeDetailedViewModel.Department
                 };
 
-                var insertEmployees = _employeeService.InsertEmployee(employeeDto);
-                return Ok(insertEmployees);
+                var insertData = _employeeService.InsertEmployee(employeeDto);
+
+                return Ok(insertData);
             }
             catch (Exception)
             {
@@ -106,8 +110,8 @@ namespace EmployeeManagement.API.Controllers
 
                 };
 
-                var updateEmployees = _employeeService.UpdateEmployee(updateData);
-                return Ok(updateEmployees);
+                var updatedData = _employeeService.UpdateEmployee(updateData);
+                return Ok(updatedData);
             }
             catch (Exception)
             {

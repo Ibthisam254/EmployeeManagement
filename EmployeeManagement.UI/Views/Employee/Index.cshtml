@@ -15,21 +15,22 @@
             <div class="modal-body">
                 <form id="createform">
                     <label>Name</label><br>
-                    <input type="text" style="width:100%" id="name" name="name" placeholder="Enter your name"/><br>
+                    <input type="text" style="width:100%" id="name" required name="name" placeholder="Enter your name" pattern="[A-Za-z\s]{1,20}"/><br>
                     <label for="department">Department</label><br>
-                    <select id="department" name="department" style="width:100%">
+                    <select id="department" required name="department" style="width:100%">
+                        <option value="">----Choose an Option----</option>
                         <option value="Accounts">Accounts</option>
                         <option value="Finance">Finance</option>
                         <option value="Developer">Developer</option>
                         <option value="HR">HR</option>
                     </select><br>
                     <label>Age</label><br>
-                    <input type="number" style="width:100%" id="age" name="age" placeholder="Enter your age"/><br>
+                    <input type="number" style="width:100%" id="age" required name="age" min="18" max="55" placeholder="Enter your age"/><br>
                     <label>Address</label><br>
-                    <input type="text" style="width:100%" id="address" name="address" placeholder="Enter your Address"/><br><br><br>
+                    <input type="text" style="width:100%" id="address" required name="address" placeholder="Enter your Address" pattern="[A-Za-z\s]{1,100}"/><br><br><br>
                     <button class="btn btn-success" type="submit" value="submit">
-            Submit
-        </button>
+                    Submit
+                    </button>
                 </form>
             </div>
            
@@ -41,7 +42,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Employee Details</h4>
+                <h4 class="modal-title" id="updateModalLabel">Employee Edit</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -49,23 +50,25 @@
             <div class="modal-body">
                 <form id="updateform">
                     <label>Id:</label><br>
-                    <input type="number" style="width:100%" id="id" name="id" placeholder="Enter your Id" /><br>
+                    <input type="number" style="width:100%" id="updateid" disabled name="id"  /><br>
                     <label>Name</label><br>
-                    <input type="text" style="width:100%" id="updatename" name="name" placeholder="Enter your name" /><br>
+                    <input type="text" style="width:100%" id="updatename" name="name" pattern="[A-Za-z\s]{1,20}}"  /><br>
                     <label for="department">Department</label><br>
-                    <select id="updatedepartment" name="department" style="width:100%">
+                    <select id="updatedepartment" name="department" required style="width:100%">
+                        <option value="">----Choose an Option----</option>
                         <option value="Accounts">Accounts</option>
                         <option value="Finance">Finance</option>
                         <option value="Developer">Developer</option>
                         <option value="HR">HR</option>
+                        <option value="Network Administration">Network Administration</option>
                     </select><br>
                     <label>Age</label><br>
-                    <input type="number" style="width:100%" id="updateage" name="age" placeholder="Enter your age" /><br>
+                    <input type="number" style="width:100%"  id="updateage" required name="age" min="18" max="55"/><br>
                     <label>Address</label><br>
-                    <input type="text" style="width:100%" id="updateaddress" name="address" placeholder="Enter your Address" /><br><br><br>
+                    <input type="text" style="width:100%" id="updateaddress" required name="address" pattern="[A-Za-z\s]{1,100}" /><br><br><br>
                     <button class="btn btn-success" type="submit" value="submit">
-            Submit
-        </button>
+                     Update
+                     </button>
                 </form>
             </div>
 
