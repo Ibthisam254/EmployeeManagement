@@ -28,40 +28,40 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         public EmployeeDetailedViewModel GetEmployeeById(int employeeId)
         {
             //Consume /{employeeId} endpoint in the EmployeeManagementApi using _httpClient
-            var response = _httpClient.GetAsync("https://localhost:44305/api/employee/"+employeeId).Result;
-            var employee = JsonConvert.DeserializeObject<EmployeeDetailedViewModel> (response.Content.ReadAsStringAsync().Result);
+            var response = _httpClient.GetAsync("https://localhost:44305/api/employee/" + employeeId).Result;
+            var employee = JsonConvert.DeserializeObject<EmployeeDetailedViewModel>(response.Content.ReadAsStringAsync().Result);
             return employee;
         }
-        public bool DeleteEmployee(int employeeId) 
+        public bool DeleteEmployee(int employeeId)
         {
             var stringContent = new StringContent(JsonConvert.SerializeObject(employeeId));
-            var response = _httpClient.DeleteAsync("https://localhost:44305/api/employee/delete/"+employeeId).Result;
+            var response = _httpClient.DeleteAsync("https://localhost:44305/api/employee/delete/" + employeeId).Result;
             return true;
         }
         public bool InsertEmployee(EmployeeDetailedViewModel employeeDetailedViewModel)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailedViewModel),Encoding.UTF8,"application/json");
+            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailedViewModel), Encoding.UTF8, "application/json");
 
 
-            using (var response = _httpClient.PostAsync("https://localhost:44305/api/employee/insert-employees",stringContent).Result)
+            using (var response = _httpClient.PostAsync("https://localhost:44305/api/employee/insert-employees", stringContent).Result)
             {
-                response.Content.ReadAsStringAsync();
+                //response.Content.ReadAsStringAsync();
                 return true;
             }
         }
-        public bool updateEmployee(EmployeeDetailedViewModel employeeDetailedViewModel) 
+        public bool updateEmployee(EmployeeDetailedViewModel employeeDetailedViewModel)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailedViewModel),Encoding.UTF8,"application/json");
+            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailedViewModel), Encoding.UTF8, "application/json");
 
 
-            using (var response = _httpClient.PutAsync("https://localhost:44305/api/employee/update-employees",stringContent).Result)
+            using (var response = _httpClient.PutAsync("https://localhost:44305/api/employee/update-employees", stringContent).Result)
             {
-                response.Content.ReadAsStringAsync();
+                //response.Content.ReadAsStringAsync();
                 return true;
             }
         }
-        
-       
+
+
 
     }
 }

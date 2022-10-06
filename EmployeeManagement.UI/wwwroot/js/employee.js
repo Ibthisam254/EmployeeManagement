@@ -8,7 +8,7 @@ function bindEvents() {
         var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
-            url: employeeUrl+'api/internal/employee/' + employeeId,
+            url: employeeUrl + 'api/internal/employee/' + employeeId,
             type: 'GET',
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -34,7 +34,7 @@ function bindEvents() {
         var conformation = confirm("Are you sure you want to remove item ?")
         if (conformation) {
             $.ajax({
-                url: employeeUrl+'api/internal/employee/delete/' + employeeId,
+                url: employeeUrl + 'api/internal/employee/delete/' + employeeId,
                 type: 'DELETE',
                 contentType: "application/json; charset=utf-8",
                 success: function (result) {
@@ -52,7 +52,7 @@ function bindEvents() {
     });
 
     $("#createform").submit(function (event) {
-        console.log("click");
+        
 
         var employeeDetailedViewModel = {};
 
@@ -64,7 +64,7 @@ function bindEvents() {
         var data = JSON.stringify(employeeDetailedViewModel);
 
         $.ajax({
-            url: employeeUrl+'api/internal/employee/insert-employees',
+            url: employeeUrl + 'api/internal/employee/insert-employees',
             type: 'POST',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
@@ -73,14 +73,15 @@ function bindEvents() {
             success: function (result) {
 
                 location.reload();
+                
             },
             error: function (error) {
                 console.log(error);
             }
         });
-        alert("Created Successfully");
+        
     });
-    
+
 
 
 
@@ -89,7 +90,7 @@ function bindEvents() {
         var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
-            url: 'https://localhost:44383/api/internal/employee/' + employeeId,
+            url: employeeUrl+'api/internal/employee/' + employeeId,
             type: 'GET',
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -110,50 +111,45 @@ function bindEvents() {
             console.log("clicked");
 
 
+            var employeeUpdate = {};
+            employeeUpdate.Id = Number($("#updateid").val());
+            employeeUpdate.Name = $("#updatename").val();
+            employeeUpdate.Department = $("#updatedepartment").val();
+            employeeUpdate.Age = Number($("#updateage").val());
+            employeeUpdate.Address = $("#updateaddress").val();
 
-            var idUpdate = $("#updateid").val();
-            var nameUpdate = $("#updatename").val();
-            var departmentUpdate = $("#updatedepartment").val();
-            var ageUpdate = $("#updateage").val();
-            var addressUpdate = $("#updateaddress").val();
+            var data = JSON.stringify(employeeUpdate);
 
-            let employees = {
-                id: parseInt(idUpdate),
-                name: nameUpdate,
-                department: departmentUpdate,
-                age: parseInt(ageUpdate),
-                address: addressUpdate
-            };
+
             $.ajax({
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                url: 'https://localhost:44383/api/internal/employee/update-employees',
+                url: employeeUrl + 'api/internal/employee/update-employees',
                 type: 'PUT',
-                data: JSON.stringify(employees),
                 dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: data,
                 async: false,
                 success: function (result) {
+
                     location.reload();
+                    
                 },
                 error: function (error) {
                     console.log(error);
                 }
-
             });
-            alert("Updated Successfully");
+            
+
 
 
         });
-
-
         
+
+
     });
-    
+
 }
 
- 
+
 function hideEmployeeDetailCard() {
     $("#EmployeeCard").hide();
 }

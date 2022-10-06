@@ -37,7 +37,7 @@ namespace EmployeeManagement.API.Controllers
                 }
                 var employeeDetails = _employeeService.GetEmployeeById(employeeId);
 
-                if (employeeDetails == null) 
+                if (employeeDetails == null)
                 {
                     throw new ArgumentException("Employee Not Found");
                 }
@@ -64,7 +64,7 @@ namespace EmployeeManagement.API.Controllers
 
                 throw;
             }
-            
+
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace EmployeeManagement.API.Controllers
         {
             try
             {
-                
+
 
                 var employeeDto = new EmployeeDto()
                 {
@@ -92,7 +92,7 @@ namespace EmployeeManagement.API.Controllers
 
                 throw;
             }
-            
+
         }
         [HttpPut]
         [Route("update-employees")]
@@ -118,7 +118,7 @@ namespace EmployeeManagement.API.Controllers
 
                 throw;
             }
-            
+
         }
         [HttpDelete]
         [Route("delete/{employeeId}")]
@@ -140,13 +140,13 @@ namespace EmployeeManagement.API.Controllers
 
                 throw;
             }
-           
+
         }
 
         #endregion
         #region PRIVATEMETHOD
-        
-        
+
+
         #endregion
         //Create Employee Insert, Update and Delete Endpoint here
     }

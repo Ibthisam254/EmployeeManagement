@@ -31,6 +31,7 @@ namespace EmployeeManagement.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterDependencies();
+            
             /*services.AddHttpClient<IEmployeeApiClient, EmployeeApiClient>();*/
             services.AddControllersWithViews();
         }
